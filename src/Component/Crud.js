@@ -4,6 +4,8 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Badge from 'react-bootstrap/Badge';
 import axios from 'axios';
+import Swal from 'sweetalert2';
+import {FaTrashAlt ,FaPencilAlt }  from 'react-icons/fa';
 
 export function Crud(){
     const[data,setData] = useState([]);
@@ -67,16 +69,24 @@ const handleiseditactive=(e)=>{
 const handlesave=()=>{
     const url = 'https://localhost:7227/api/Student';
     const savedata={
-        "Name":name,
-        "Age":age,
-        "LastName":lastname,
-        "Grade":grade,
-        "IsActive":isactive
+        "name":name,
+        "age":age,
+        "lastName":lastname,
+        "grade":grade,
+        "isActive":isactive
+
     }
 
     axios.post(url,savedata).then((result)=>{
         getData();
-      alert("Saved");
+        clear();
+      Swal.fire({
+        title: "Success",
+        text: "Save Successfully",
+        icon: "success",
+        confirmButtonText: "Ok"
+      });
+      
     });
 }
     
@@ -119,19 +129,64 @@ const handlesave=()=>{
 
         axios.put(updateurl,editsavedata).then((result)=>{
             getData();
-            alert("Updated");
+            clear();
+            Swal.fire({
+                title: "Update",
+                text: "Update Successfully",
+                icon: "success",
+                confirmButtonText: "Ok"
+              });
             handleClose();
         })
     }
     /**Delete */
     const handledelete=(id)=>{
-        const deleteurl = `https://localhost:7227/api/Student/${id}`;
-        axios.delete(deleteurl).then((result)=>{
-            getData();
-            alert("Deleted");
-        })
+        Swal.fire({
+            title: "Are you Sure?",
+            text: "Once it deleted you won't be able to revert!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonText:"Cancel",
+            confirmButtonText: "Yes Delete It"
+          }).then((result)=>{
+            if(result.isConfirmed)
+            {
+                const deleteurl = `https://localhost:7227/api/Student/${id}`;
+                axios.delete(deleteurl).then((result)=>{
+                    getData();
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Delete Successfully",
+                        icon: "success"           
+                      });
+                })
+            }
+          });
     }
    /**Delete */
+
+   /**Clear State */
+const clear=()=>{
+
+    /**Add Clear */
+    setStudentName('');
+    setStudentLastName('');
+    setStudentAge('');
+    setStudentGrade('');
+    setStudentStatus(false);
+    /**Add Clear */
+
+    /**Edit Clear */
+    setStudentEditId('');
+    setStudentEditName('');
+    setStudentEditLastName('');
+    setStudentEditAge('');
+    setStudentEditGrade('');
+    setStudentEditStatus(false);
+        /**Edit Clear */
+}
+   /**Clear State */
     /** Modal */
       const[show,setshow]=useState(false);
       const handleClose=()=>setshow(false);
@@ -139,7 +194,7 @@ const handlesave=()=>{
      /** Modal */
     return (
         <div className='container'>
-          <div className='row'>
+          <div className='row marginbothside'>
               <div className='col-6'>
                   <label>Name</label>
                   <input type='text' className='form-control Name' name='Name' onChange={(e)=>setStudentName(e.target.value)}></input>
@@ -157,11 +212,10 @@ const handlesave=()=>{
                   <input type='text' className='form-control Grade' name='Grade' onChange={(e)=>setStudentGrade(e.target.value)}></input>
               </div>
               <div className='col-6'>
-                  <label>Is Active</label>
+                  <label className="width100">Is Active</label>
                   <input type='checkbox' className='isactive' name='isactive' onChange={handleisactive}/>
               </div>
-              <div className='col-12'>
-     
+              <div className='col-12 text-align-left gy-2 py-2'>     
                   <button type='button' className='btn btn-primary' onClick={()=>handlesave()}>Save</button>
               </div>
           </div>
@@ -190,16 +244,16 @@ const handlesave=()=>{
                            return (     <tr key = {index}>
                                    <td>{item.id}</td>
                                    <td>{item.name}</td>
-                                   <td>{item.lastname}</td>
+                                   <td>{item.lastName}</td>
                                    <td>{item.grade}</td>
                                    <td>{item.age}</td>
                                    <td>{item.isActive==true? <Badge bg="primary">Active</Badge>:<Badge bg="danger">In Active</Badge>}</td>
-                                   <td><button type='button' className='btn btn-primary px-2' onClick={()=>handleedit(item.id)}>Edit</button><button type='button' className='btn btn-danger' onClick={()=>handledelete(item.id)}>Delete</button></td>
+                                   <td><button type='button' className='btn btn-primary px-2' onClick={()=>handleedit(item.id)}><FaPencilAlt className="primary"/></button><button type='button' className='btn btn-danger' onClick={()=>handledelete(item.id)}><FaTrashAlt className="danger"/></button></td>
                                  </tr>
                                  )
                             })
                             :
-                            "NO DATA"
+                          <tr className="text-center row"><td colSpan={4}>No Data</td></tr>
                         }
 
                       </tbody>
@@ -234,8 +288,8 @@ const handlesave=()=>{
                   <label>Grade</label>
                   <input type='text' className='form-control EditGrade' name='EditGrade' value={editgrade} onChange={(e)=>setStudentEditGrade(e.target.value)}></input>
               </div>
-              <div className='col-6'>
-                  <label>Is Active</label>
+              <div className='col-6 aligncenter text-center'>
+                  <label className="width100" >Is Active</label>
 
                   <input type='checkbox' className='Editisactive' name='Editisactive' value={editisactive}
                   checked={editisactive==true?true:false}

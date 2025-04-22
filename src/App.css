@@ -1,38 +1,123 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+/**CSS**/
+.App{
+  text-align:center;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  .App-logo{
+  height:40vmin;
+  pointer-events:none;
   }
-  to {
-    transform: rotate(360deg);
+  
+  @media(prefer-reduced-motion:no-preference){
+  .App-logo{
+    animation:App-logo-spin infinite 20s linear;	
   }
-}
+  }
+  
+  .App-header{
+  background-color:#282c34;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  font-size:calc(10px+2vmin);
+  color:white;
+  }
+  .App-link{
+  color:#61dafb;
+  }
+  
+  @keyframes App-logo-spin
+  {
+  from{
+  transform:rotate(0deg);
+  }
+  to{
+  transform:rotate(360deg);
+  }
+  }
+  
+  .width100{
+  width:100%;
+  }
+  
+  .text-align-left{
+  text-align:left !important;
+  }
+  
+  body{
+  background:#FFEFBA;/**fallback for old browsers**/
+  background:-webkit-linear-gradient(to right,#FFFFFF,#FFEFBA);
+  background:linear-gradient(to right,#FFFFFF,#FFEFBA);
+  }
+  
+  .logo{
+  border-bottom:3px solid #FFF;
+  margin-bottom:30px;
+  margin-top:30px;
+  }
+  
+  .marginbothside{
+  margin-left:10% !important;
+  margin-right:10% !important;
+  }
+  
+  label,h1,p{
+  font-family:monospace;
+  font-size:21px;
+  }
+  
+  .aligncenter{
+  align-self:center;
+  }
+  
+  .card-header, .model-header{
+  background:#5d2e91 !important;
+  color:#fff !important;
+  }
+  
+  
+  .card-header h3{
+  margin-bottom:0px;
+  }
+  
+  .table .btn{
+  background:none !important;
+  border:none;
+  padding:0px;
+  font-size:14px;
+  margin:0px;
+  vertical-align:inherit;
+  }
+  
+  .primary{
+  color:#1212b7;
+  }
+  
+  .danger{
+  color:red;
+  }
+  
+  input.form-control{
+  border:none;
+  border-bottom:2px solid #00d8ff !important;
+  border-radius:0px;
+  background:none;
+  }
+  
+  .modal-title{
+  text-align:center;
+  width:100%;
+  }
+  
+  button.btn-close{
+  position:relative;
+  top:-34px;
+  left:16px;
+  border:1px solid #fff;
+  font-size:10px;
+  color:#000;
+  font-weight:bold;
+  }
+  
+  /**CSS**/
